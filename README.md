@@ -50,9 +50,10 @@ Alternatively the below templates can be used to run your own commands.
    - **Example**:
      ```bash
      curl -X POST "http://localhost:8000/upload" \
-       -H "Content-Type: multipart/form-data" \
-       -F "file=@input/sample.pdf" \
-       -F "metadata={\"category\": \"inscribe\", \"subject\": \"technical\"}"
+        -u username:password \
+        -H "Content-Type: multipart/form-data" \
+        -F "file=@input/sample.pdf" \
+        -F "metadata={\"category\": \"inscribe\", \"subject\": \"technical\"}"
      ```
 
 ### 2. Retrieve a File by ID
@@ -60,7 +61,7 @@ Alternatively the below templates can be used to run your own commands.
    - **Description**: Retrieves a file by its unique ID, storing it in the `output` directory.
    - **Example**:
      ```bash
-     curl -X GET "http://localhost:8000/files/1" -o ../output/retrieved_file.pdf
+     curl -X GET "http://localhost:8000/files/1" -u username:password -o ../output/retrieved_file.pdf
      ```
 
 ### 3. Search Files by Metadata
@@ -68,7 +69,7 @@ Alternatively the below templates can be used to run your own commands.
    - **Description**: Searches for files matching specified metadata and store as zip folder (if multiple files returned)
    - **Example**:
      ```bash
-     curl -G "http://localhost:8000/files" --data-urlencode "category=document" --data-urlencode "subject=banking" -o ../output/matched_files.zip
+     curl -G "http://localhost:8000/files" -u username:password --data-urlencode "category=document" --data-urlencode "subject=banking" -o ../output/matched_files.zip
      ```
 
 ### 4. Delete a File
@@ -76,7 +77,7 @@ Alternatively the below templates can be used to run your own commands.
    - **Description**: Deletes a file by its unique ID.
    - **Example**:
      ```bash
-     curl -X DELETE "http://localhost:8000/files/1"
+     curl -X DELETE "http://localhost:8000/files/1" -u username:password ./
      ```
 
 ## Testing Scripts
@@ -97,11 +98,11 @@ Located in `testing/scripts/`, these scripts provide an easy way to interact wit
     - Deletes a file by its unique ID.
     - Takes 1 arg, file_id you wish to delete 
 
-Each script logs its actions to `logs/upload_log.txt`, including response codes and timestamps.
+Each script logs its actions to `logs/test.log`, including response codes and timestamps.
 
 ## Logs
 
-All interactions during testing are logged in `testing/logs/upload_log.txt`. This log file includes:
+All interactions during testing are logged in `testing/logs/test.log`. This log file includes:
 
 - Each action performed by the scripts
 - Timestamps for each action

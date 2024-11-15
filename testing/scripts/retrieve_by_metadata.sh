@@ -6,7 +6,7 @@
 
 log_file="../logs/test.log"
 
-curl -G "http://localhost:8000/files" --data-urlencode "category=Dogs" --data-urlencode "subject=Otis" -o ../output/Otis.zip \
+curl -G "http://localhost:8000/files" -u eoinoreilly:inscribe24  --data-urlencode "category=Dogs" --data-urlencode "subject=Otis" -o ../output/Otis.zip \
     -w "\nResponse Code: %{http_code}\n" -o - >> "$log_file" 2>&1
 
 echo "Logged on $(date)" >> "$log_file"

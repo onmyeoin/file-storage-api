@@ -11,6 +11,7 @@ metadata=$2
 
 curl -X POST "http://localhost:8000/upload" \
   -H "Content-Type: multipart/form-data" \
+  -u eoinoreilly:inscribe24 \
   -F "file=@${file_path}" \
   -F "metadata=${metadata}" \
   -w "\nResponse Code: %{http_code}\n" -o - >> "$log_file" 2>&1
